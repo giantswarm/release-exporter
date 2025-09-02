@@ -59,7 +59,9 @@ func (rc *releaseCollector) UpdateFromCatalog() {
 	if err != nil {
 		log.Fatalf("error: %v", err)
 	}
-	defer resp.Body.Close()
+	defer func() {
+		_ = resp.Body.Close()
+	}()
 
 	data, err := io.ReadAll(resp.Body)
 	if err != nil {
