@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: release-exporter
-        image: quay.io/giantswarm/release-exporter:{{ .Chart.Version }}
+        image: {{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag | default .Chart.Version }}
         args:
         - --update-cache-every={{ .Values.updateCacheEvery }}
         ports:
