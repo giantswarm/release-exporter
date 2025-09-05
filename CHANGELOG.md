@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.2] - 2025-09-05
 
+### Changed
+
+- Switch to `gsoci` supported registry.
+
 ## [0.1.1] - 2024-03-18
 
 ### Changed
