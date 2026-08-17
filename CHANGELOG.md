@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Strip semver build metadata from the default image tag. Flux reports `.Chart.Version` as
+  `<version>+<oci-digest>` when the chart comes from an `OCIRepository`, and `+` is not legal in an image tag,
+  so the pod failed with `InvalidImageName`. This blocked the migration from an App CR to a HelmRelease.
+
 ## [0.1.2] - 2025-09-05
 
 ### Changed
