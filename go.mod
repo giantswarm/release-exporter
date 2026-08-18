@@ -20,3 +20,11 @@ require (
 	golang.org/x/sys v0.47.0 // indirect
 	google.golang.org/protobuf v1.36.11 // indirect
 )
+
+// CVE-2026-56852 / GO-2026-5970: infinite loop in golang.org/x/text/unicode/norm
+// on invalid UTF-8 input. x/text is pulled in transitively via
+// prometheus/client_golang and prometheus/common and is not reachable from this
+// module's packages, so `go get` + `go mod tidy` cannot raise it -- module-graph
+// pruning drops the unused require and the selected version falls back. nancy
+// audits the whole module graph and gates go-build, so pin it here.
+replace golang.org/x/text => golang.org/x/text v0.41.0
