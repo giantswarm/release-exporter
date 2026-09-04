@@ -4,5 +4,4 @@
 # type, which errors ("Unknown cluster type None"). build-chart (lint + package
 # + values.schema.json) remains the gate. To enable a real smoke later, drop the
 # step from skip-steps and add a tests/ats conftest.
-smoke-tests-cluster-type: kind
 skip-steps: [smoke,functional,upgrade]
