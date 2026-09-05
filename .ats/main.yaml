@@ -1,7 +1,16 @@
-# app-test-suite config consumed by the generated execute-chart-tests job.
-# Cluster smoke/functional/upgrade tests are skipped: these charts have no ATS
-# test suite, and the generated job runs ATS with smoke enabled but no cluster
-# type, which errors ("Unknown cluster type None"). build-chart (lint + package
-# + values.schema.json) remains the gate. To enable a real smoke later, drop the
-# step from skip-steps and add a tests/ats conftest.
-skip-steps: [smoke,functional,upgrade]
+# app-test-suite (ats >= 1.0) config for the generated execute-chart-tests CircleCI job.
+# ats creates a kind cluster, applies the CRDs below, installs the packaged chart with
+# `helm upgrade --install --wait` and runs `uv run pytest -m smoke` in tests/ats.
+#
+# The chart hard-codes `namespace: release-exporter` on its resources, so the release
+# must go there.
+app-tests-deploy-namespace: release-exporter
+app-tests-app-config-file: tests/ats/smoke-values.yaml
+
+# The chart's PolicyException is policy.giantswarm.io/v1alpha1 (kyverno-policy-operator's
+# API), which the ats bundle (/etc/ats/crds) does not carry, so its CRD is appended here.
+cluster-crds: /etc/ats/crds,https://raw.githubusercontent.com/giantswarm/policy-api/v0.0.11/crds/policy.giantswarm.io_policyexceptions.yaml
+
+# functional: no functional tests yet.
+# upgrade: needs upgrade-tests-app-catalog-url pointing at the released chart; not wired.
+skip-steps: [functional, upgrade]
