@@ -27,4 +27,4 @@ require (
 // module's packages, so `go get` + `go mod tidy` cannot raise it -- module-graph
 // pruning drops the unused require and the selected version falls back. nancy
 // audits the whole module graph and gates go-build, so pin it here.
-replace golang.org/x/text => golang.org/x/text v0.41.0
+replace golang.org/x/text => golang.org/x/text v0.42.0
