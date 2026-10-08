@@ -1,13 +1,15 @@
-# Chart unit tests. Local only: chart unit tests belong in the generated
-# workflow set rather than a hand-written workflow per repo.
+# Chart unit tests. `make test` runs them too, so CI's go-build job does.
 #
 # Deliberately does not depend on the generated `lint-chart`: that one needs
 # docker with a TTY plus `architect`, so it does not run on a plain runner.
+#
+# APPLICATION, the chart directory name, comes from Makefile.gen.go.mk.
 
-APPLICATION := release-exporter
 HELM_UNITTEST_VERSION ?= v1.1.1
 
 ##@ Chart testing
+
+test: helm-unittest
 
 .PHONY: helm-unittest
 helm-unittest: helm-plugin-unittest ## Run the helm-unittest suites in helm/$(APPLICATION)/tests/.
