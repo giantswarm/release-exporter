@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add the `architecture` value (`""`, `amd64` or `arm64`) and the `nodeSelector` and `tolerations` values.
+  `architecture: arm64` renders both the `kubernetes.io/arch` node selector and the toleration for the
+  `kubernetes.io/arch=arm64:NoSchedule` taint of Giant Swarm arm64 node pools. The default render is unchanged.
+
 ### Fixed
 
 - Derive the default image tag from `.Chart.AppVersion` instead of `.Chart.Version`. Flux reports
